@@ -1,0 +1,5 @@
+pre-commit:
+  commands:
+    eslint:
+      glob: "*.{js,ts}"
+      run: dip yarn eslint {staged_files}

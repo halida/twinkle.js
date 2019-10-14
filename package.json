@@ -6,5 +6,20 @@
   "repository": "https://github.com/bibendi/twinkle.js",
   "author": "bibendi",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "debug": "nodemon --inspect=0.0.0.0:9229 app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "koa": "^2.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.3"
+  }
 }
