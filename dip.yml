@@ -1,0 +1,31 @@
+version: '2'
+
+environment:
+  NODE_ENV: development
+
+compose:
+  files:
+    - docker-compose.yml
+    - docker-compose.${NODE_ENV}.yml
+
+interaction:
+  bash:
+    service: app
+    command: bash
+
+  yarn:
+    service: app
+    command: yarn
+    subcommands:
+      start:
+        compose_method: up
+        compose_run_options: [detach]
+      dev:
+        command: yarn dev
+        compose_run_options: [service-ports, use-aliases]
+      debug:
+        command: yarn debug
+        compose_run_options: [service-ports, use-aliases]
+
+provision:
+  - dip yarn install
