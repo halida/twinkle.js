@@ -1,33 +1,44 @@
-version: '2'
-
-compose:
-  files:
-    - docker-compose.yml
+version: '4.1'
 
 interaction:
   bash:
+    description: Oopen a Bash shell
     service: app
     command: bash
 
   yarn:
+    description: Run Yarn commands
     service: app
     command: yarn
     subcommands:
       start:
-        compose_method: up
-        compose_run_options: [detach]
+        description: Run Node server in production mode
+        compose:
+          method: up
+          run_options: [detach]
       dev:
+        description: Run Node server in development mode
         command: yarn dev
-        compose_run_options: [service-ports, use-aliases]
+        compose:
+          run_options: [service-ports, use-aliases]
       debug:
+        description: Run Node server in development mode with an opened debug port
         command: yarn debug
-        compose_run_options: [service-ports, use-aliases]
+        compose:
+          run_options: [service-ports, use-aliases]
+
+  sequelize:
+    description: Run sequelize-cli commands
+    service: app
+    command: yarn sequelize-cli
 
   psql:
+    description: Open a Postgres psql console
     service: postgres
+    default_args: twinkle_development
     command: psql -h postgres -U postgres
 
 provision:
   - dip yarn install
-  - dip yarn sequelize-cli db:create
-  - dip yarn sequelize-cli db:migrate
+  - dip sequelize-cli db:create
+  - dip sequelize-cli db:migrate

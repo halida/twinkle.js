@@ -1,4 +1,3 @@
-
 const Koa = require('koa');
 const User = require('./models/user');
 
