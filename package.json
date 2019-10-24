@@ -2,7 +2,7 @@
   "name": "twinkle",
   "version": "1.0.0",
   "description": "Notification service",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/bibendi/twinkle.js",
   "author": "bibendi",
   "license": "MIT",
