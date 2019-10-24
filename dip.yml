@@ -32,6 +32,17 @@ interaction:
     service: app
     command: yarn sequelize-cli
 
+  lint:
+    description: Run Standard linter
+    service: app
+    command: bash -c "yarn standard --verbose | yarn snazzy"
+    compose:
+      run_options: [no-deps]
+    subcommands:
+      fix:
+        description: Fix linter problems
+        command: yarn standard --fix
+
   psql:
     description: Open a Postgres psql console
     service: postgres

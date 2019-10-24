@@ -1,21 +1,21 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../config/sequelize');
+const Sequelize = require('sequelize')
+const sequelize = require('../config/sequelize')
 
 const User = sequelize.define('user', {
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: false
   },
   login: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: false
   },
   githubToken: {
     type: Sequelize.STRING,
-    allowNull: true,
-  },
+    allowNull: true
+  }
 }, {
-  sequelize,
-});
+  sequelize
+})
 
-module.exports = User;
+module.exports = User

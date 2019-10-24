@@ -1,5 +1,5 @@
 pre-commit:
   commands:
-    eslint:
+    lint:
       glob: "*.{js,ts}"
-      run: dip yarn eslint {staged_files}
+      run: dip lint fix {staged_files}
