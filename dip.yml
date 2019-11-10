@@ -51,5 +51,5 @@ interaction:
 
 provision:
   - dip yarn install
-  - dip sequelize-cli db:create
-  - dip sequelize-cli db:migrate
+  - dip sequelize db:create
+  - dip sequelize db:migrate

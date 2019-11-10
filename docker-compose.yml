@@ -1,12 +1,12 @@
-version: '3.4'
+version: '2.4'
 
 services:
   app:
     build:
       context: .
       args:
-        NODE_VERSION: '12.12.0'
-        PG_VERSION: '12'
+        NODE_VERSION: '13.1'
+      target: development
     image: twinkle.js:1.0.0
     tmpfs:
       - /tmp
@@ -24,7 +24,8 @@ services:
       - '3000:3000'
       - '9229:9229'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres:12
@@ -34,6 +35,9 @@ services:
       - ./log:/var/log/psql_history
     ports:
       - 5432
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
 
 volumes:
   postgres:

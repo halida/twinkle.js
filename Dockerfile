@@ -1,20 +1,42 @@
 ARG NODE_VERSION
-FROM node:${NODE_VERSION}-stretch
+# === Base image ===
+FROM node:${NODE_VERSION}-buster-slim as base
 
-ARG PG_VERSION
-
-RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-  && echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' $PG_VERSION > /etc/apt/sources.list.d/pgdg.list \
-  && apt-get update -qq \
+# Dependencies
+RUN apt-get update -qq \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-    build-essential \
     less \
     vim \
-    postgresql-client-$PG_VERSION \
+    git \
+    libpq-dev \
   && apt-get clean \
+  && rm -rf /var/cache/apt/archives/* \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && truncate -s 0 /var/log/*log
 
-RUN mkdir -p /app
+RUN mkdir /app
 
 WORKDIR /app
+EXPOSE 3000
+
+
+# === Development image ===
+FROM base as development
+ENV NODE_ENV=development
+EXPOSE 9229
+CMD ["/usr/bin/bash"]
+
+
+# === Production image ===
+FROM base as production
+ENV NODE_ENV=production
+
+RUN chown -R node:node /app
+USER node
+
+COPY --chown=node:node package.json yarn.lock ./
+RUN yarn install
+
+COPY --chown=node:node . .
+
+CMD ["yarn", "start"]
