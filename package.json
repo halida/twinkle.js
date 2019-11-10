@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "koa": "^2.10.0",
-    "koa-mount": "^4.0.0",
     "pg": "^7.12.1",
     "sequelize": "^5.19.6",
     "sequelize-cli": "^5.5.1"
