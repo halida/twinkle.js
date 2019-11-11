@@ -1,6 +1,5 @@
-import sequelize from 'sequelize'
+import { Sequelize } from 'sequelize'
 import config from './database.js'
-const { Sequelize } = sequelize
 
 const env = process.env.NODE_ENV || 'development'
 

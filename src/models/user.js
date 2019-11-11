@@ -1,6 +1,5 @@
-import sequelize from 'sequelize'
+import { Sequelize } from 'sequelize'
 import { pg } from '../config/pg.js'
-const { Sequelize } = sequelize
 
 export const User = pg.define('user', {
   email: {

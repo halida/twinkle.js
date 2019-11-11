@@ -2,22 +2,20 @@
   "name": "twinkle",
   "version": "1.0.0",
   "description": "Notification service",
-  "main": "app.js",
+  "main": "src/app.js",
   "repository": "https://github.com/bibendi/twinkle.js",
   "author": "bibendi",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "start": "babel-node app.js",
-    "dev": "nodemon --exec babel-node app.js",
-    "debug": "nodemon --exec babel-node --inspect=0.0.0.0:9229 app.js",
+    "start": "yarn build && yarn serve",
+    "build": "babel src --out-dir dist --copy-files",
+    "serve": "node dist/app.js",
+    "dev": "nodemon --exec babel-node src/app.js",
+    "debug": "nodemon --exec babel-node --inspect=0.0.0.0:9229 src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/node": "^7.7.0",
-    "@babel/preset-env": "^7.7.1",
     "apollo-server-core": "^2.9.7",
     "apollo-server-koa": "^2.9.7",
     "koa": "^2.10.0",
@@ -28,7 +26,10 @@
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
-    "babel-register": "^6.26.0",
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.7.0",
+    "@babel/preset-env": "^7.7.1",
     "nodemon": "^1.19.3",
     "snazzy": "^8.0.0",
     "standard": "^14.3.1"

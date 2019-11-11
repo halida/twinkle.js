@@ -11,11 +11,6 @@ interaction:
     service: app
     command: yarn
     subcommands:
-      start:
-        description: Run Node server in production mode
-        compose:
-          method: up
-          run_options: [detach]
       dev:
         description: Run Node server in development mode
         command: yarn dev
