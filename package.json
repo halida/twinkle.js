@@ -18,6 +18,7 @@
     "@babel/core": "^7.7.2",
     "@babel/node": "^7.7.0",
     "@babel/preset-env": "^7.7.1",
+    "apollo-server-core": "^2.9.7",
     "apollo-server-koa": "^2.9.7",
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",

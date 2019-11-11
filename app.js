@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import koaBody from 'koa-bodyparser'
 import { router } from './config/routes.js'
-import { apolloServer } from './graphql/apollo.js'
+import { apolloServer } from './api/apollo.js'
 
 const app = new Koa()
 
