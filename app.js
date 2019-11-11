@@ -1,17 +1,16 @@
-const Koa = require('koa')
-const User = require('./models/user')
+import Koa from 'koa'
+import koaBody from 'koa-bodyparser'
+import { router } from './config/routes.js'
+import { apolloServer } from './graphql/apollo.js'
 
 const app = new Koa()
 
-app.use(async (ctx) => {
-  const users = await User.findAll()
+apolloServer.applyMiddleware({ app })
 
-  console.log(users)
-
-  ctx.body = 'Hello World'
-})
+app.use(koaBody())
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 const serverPort = process.env.PORT || 3000
 app.listen(serverPort)
-
 console.log(`Start listening on http://0.0.0.0:${serverPort}`)

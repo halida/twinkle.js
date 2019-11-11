@@ -1,7 +1,8 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../config/sequelize')
+import sequelize from 'sequelize'
+import { pg } from '../config/pg.js'
+const { Sequelize } = sequelize
 
-const User = sequelize.define('user', {
+export const User = pg.define('user', {
   email: {
     type: Sequelize.STRING,
     allowNull: false
@@ -15,7 +16,5 @@ const User = sequelize.define('user', {
     allowNull: true
   }
 }, {
-  sequelize
+  pg
 })
-
-module.exports = User
