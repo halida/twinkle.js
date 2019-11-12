@@ -48,3 +48,4 @@ provision:
   - dip yarn install
   - dip sequelize db:create
   - dip sequelize db:migrate
+  - dip sequelize db:seed:all
