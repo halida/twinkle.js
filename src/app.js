@@ -1,15 +1,20 @@
 import Koa from 'koa'
 import koaBody from 'koa-bodyparser'
+import { ApolloServer, makeExecutableSchema } from 'apollo-server-koa'
 import { router } from './config/routes.js'
-import { apolloServer } from './config/apollo.js'
+import { loadApi } from './config/graphql.js'
 
 const app = new Koa()
-
-apolloServer.applyMiddleware({ app })
 
 app.use(koaBody())
 app.use(router.routes())
 app.use(router.allowedMethods())
+
+loadApi().then(api => {
+  const schema = makeExecutableSchema(api)
+  const apolloServer = new ApolloServer({ schema })
+  apolloServer.applyMiddleware({ app })
+})
 
 const serverPort = process.env.PORT || 3000
 app.listen(serverPort)
