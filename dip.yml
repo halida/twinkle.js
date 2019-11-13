@@ -22,11 +22,6 @@ interaction:
         compose:
           run_options: [service-ports, use-aliases]
 
-  sequelize:
-    description: Run sequelize-cli commands
-    service: app
-    command: yarn sequelize-cli
-
   lint:
     description: Run Standard linter
     service: app
@@ -46,6 +41,6 @@ interaction:
 
 provision:
   - dip yarn install
-  - dip sequelize db:create
-  - dip sequelize db:migrate
-  - dip sequelize db:seed:all
+  - dip yarn sequelize-cli db:create
+  - dip yarn sequelize-cli db:migrate
+  - dip yarn sequelize-cli db:seed:all
