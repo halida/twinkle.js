@@ -1,4 +1,4 @@
-import { User } from '../../models/user.js'
+import { User } from '../../models/user'
 
 export async function up (queryInterface, Sequelize) {
   await User.create({
