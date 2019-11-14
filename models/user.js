@@ -2,6 +2,10 @@ import { Sequelize } from 'sequelize'
 import { pg } from '../config/pg'
 
 export const User = pg.define('user', {
+  role: {
+    type: Sequelize.ENUM('admin', 'member'),
+    allowNull: false
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: false,

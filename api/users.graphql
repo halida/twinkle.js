@@ -1,5 +1,11 @@
+enum Role {
+    member
+    admin
+}
+
 type User {
     id: ID!
+    role: Role!
     createdAt: DateTime!
     updatedAt: DateTime!
     email: String!
