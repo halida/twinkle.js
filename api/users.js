@@ -51,7 +51,7 @@ export const resolvers = {
       try {
         await user.update(_.pick(args.input, 'email', 'login'))
       } catch (e) {
-        if (e.name = 'ValidationError') {
+        if (e.name === 'SequelizeValidationError') {
           return { errors: e.errors }
         } else {
           throw e
