@@ -14,6 +14,7 @@ loadApi().then(api => {
   const schema = makeExecutableSchema(api)
   const apolloServer = new ApolloServer({ schema })
   apolloServer.applyMiddleware({ app })
+  console.log(`💠 GraphQL playground available at http://localhost:${serverPort}/graphql`)
 })
 
 const serverPort = process.env.PORT || 3000

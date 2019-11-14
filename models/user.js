@@ -4,16 +4,23 @@ import { pg } from '../config/pg.js'
 export const User = pg.define('user', {
   email: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
   },
   login: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   githubToken: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: true,
+    validate: {
+      notEmpty: true
+    }
   }
-}, {
-  pg
 })

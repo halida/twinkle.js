@@ -4,6 +4,13 @@ export const typeDefs = gql`
     scalar Date
     scalar Time
     scalar DateTime
+    scalar JSONString
+
+    type ValidationError {
+        message: String
+        path: String
+        validatorName: String
+    }
 
     type Query {
         sayHello(name: String!): String!
@@ -16,13 +23,13 @@ export const typeDefs = gql`
 
 export const resolvers = {
   Query: {
-    sayHello: (obj, args, context, info) => {
+    sayHello: (obj, args) => {
       return `Hello ${args.name}!`
     }
   },
 
   Mutation: {
-    sayHello: (obj, args, context, info) => {
+    sayHello: (obj, args) => {
       return `Hello ${args.name}!`
     }
   }
