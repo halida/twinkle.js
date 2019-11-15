@@ -10,10 +10,9 @@ app.use(koaBody())
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-loadApi().then(apolloServer => {
-  apolloServer.applyMiddleware({ app })
-  console.log(`💠 GraphQL playground available at http://localhost:${serverPort}/graphql`)
-
+loadApi(app).then(() => {
   app.listen(serverPort)
+
+  console.log(`💠 GraphQL playground available at http://localhost:${serverPort}/graphql`)
   console.log(`🚀 Start listening on http://0.0.0.0:${serverPort}`)
 })

@@ -1,9 +1,37 @@
 import fs from 'fs'
 import path from 'path'
-import { ApolloServer, makeExecutableSchema, UserInputError } from 'apollo-server-koa'
+import { ApolloServer, makeExecutableSchema, UserInputError, ForbiddenError } from 'apollo-server-koa'
 import { ValidationError } from 'sequelize'
+import { applyMiddleware } from 'graphql-middleware'
+import { shield } from 'graphql-shield'
 
-async function scan (dir, { typeDefs = [], resolvers = [] } = {}) {
+export async function loadApi (app) {
+  const api = await scan(path.join(__dirname, '..', 'api'))
+  const schema = makeExecutableSchema({ typeDefs: api.typeDefs, resolvers: api.resolvers })
+  const server = new ApolloServer({ schema, formatError: rescueFrom })
+
+  applyMiddleware(schema,
+    shield(api.permissions, {
+      fallbackError: new ForbiddenError('Not Authorized!'),
+      allowExternalErrors: true
+    })
+  )
+
+  server.applyMiddleware({ app })
+}
+
+function rescueFrom (e) {
+  if (e.originalError instanceof ValidationError) {
+    const invalidArgs = e.originalError.errors.map(error => {
+      return { message: error.message, path: error.path, validatorName: error.validatorName }
+    })
+    return new UserInputError('Validation error', { invalidArgs })
+  }
+
+  return e
+}
+
+async function scan (dir, { typeDefs = [], resolvers = [], permissions = { Query: {}, Mutation: {} } } = {}) {
   const files = fs.readdirSync(dir)
     .filter(file => fs.lstatSync(path.join(dir, file)).isFile())
     .filter(file => path.extname(file) === '.js')
@@ -18,33 +46,18 @@ async function scan (dir, { typeDefs = [], resolvers = [] } = {}) {
     }
 
     const api = await import(path.join(dir, file))
-    resolvers.push(api.resolvers)
+
+    if (api.resolvers) resolvers.push(api.resolvers)
+
+    if (api.permissions) {
+      if (api.permissions.Query) Object.assign(permissions.Query, api.permissions.Query)
+      if (api.permissions.Mutation) Object.assign(permissions.Mutation, api.permissions.Mutation)
+    }
   }
 
   for (const subDir of dirs) {
     await scan(path.join(path, subDir), { typeDefs, resolvers })
   }
 
-  return { typeDefs, resolvers }
-}
-
-function rescueFrom (e) {
-  if (e.originalError instanceof ValidationError) {
-    const invalidArgs = e.originalError.errors.map(error => {
-      return { message: error.message, path: error.path, validatorName: error.validatorName }
-    })
-    return new UserInputError('Validation error', { invalidArgs })
-  }
-
-  return e
-}
-
-export async function loadApi () {
-  const api = await scan(path.join(__dirname, '..', 'api'))
-  const schema = makeExecutableSchema(api)
-
-  return new ApolloServer({
-    schema,
-    formatError: rescueFrom
-  })
+  return { typeDefs, resolvers, permissions }
 }
