@@ -4,20 +4,27 @@ import { ApolloServer, makeExecutableSchema, UserInputError, ForbiddenError } fr
 import { ValidationError } from 'sequelize'
 import { applyMiddleware } from 'graphql-middleware'
 import { shield } from 'graphql-shield'
+import { verify } from './jwt'
 
 export async function loadApi (app) {
-  const api = await scan(path.join(__dirname, '..', 'api'))
-  const schema = makeExecutableSchema({ typeDefs: api.typeDefs, resolvers: api.resolvers })
-  const server = new ApolloServer({ schema, formatError: rescueFrom })
+  const { typeDefs, resolvers, permissions } = await scan(path.join(__dirname, '..', 'api'))
+  const schema = makeExecutableSchema({ typeDefs, resolvers })
+  const server = new ApolloServer({ schema, formatError: rescueFrom, context: setContext })
 
   applyMiddleware(schema,
-    shield(api.permissions, {
+    shield(permissions, {
       fallbackError: new ForbiddenError('Not Authorized!'),
       allowExternalErrors: true
     })
   )
 
   server.applyMiddleware({ app })
+}
+
+function setContext ({ ctx }) {
+  return {
+    user: verify(ctx.req, ctx.res)
+  }
 }
 
 function rescueFrom (e) {

@@ -18,15 +18,18 @@
     "apollo-server-core": "^2.9.7",
     "apollo-server-koa": "^2.9.7",
     "esm": "^3.2.25",
+    "graphql": "^14.5.8",
     "graphql-middleware": "^4.0.2",
     "graphql-shield": "^7.0.2",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.15",
     "pg": "^7.12.1",
     "sequelize": "^5.19.6",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.3",
