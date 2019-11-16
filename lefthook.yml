@@ -2,4 +2,4 @@ pre-commit:
   commands:
     lint:
       glob: "*.{js,ts}"
-      run: dip lint fix {staged_files}
+      run: dip lint {staged_files}

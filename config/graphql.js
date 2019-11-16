@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { ApolloServer, makeExecutableSchema, UserInputError, ForbiddenError } from 'apollo-server-koa'
+import { AssertionError } from 'assert'
 import { ValidationError } from 'sequelize'
 import { applyMiddleware } from 'graphql-middleware'
 import { shield } from 'graphql-shield'
@@ -33,6 +34,9 @@ function rescueFrom (e) {
       return { message: error.message, path: error.path, validatorName: error.validatorName }
     })
     return new UserInputError('Validation error', { invalidArgs })
+  } else if (e.originalError instanceof AssertionError) {
+    const { message, actual, expected, code } = e.originalError
+    return new UserInputError('Assertion error', { message, actual, expected, code })
   }
 
   return e

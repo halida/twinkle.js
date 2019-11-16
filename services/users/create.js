@@ -1,3 +1,4 @@
+import { strictEqual } from 'assert'
 import { hash } from 'bcryptjs'
 import { User } from '../../models/user'
 
@@ -13,8 +14,7 @@ export class CreateUser {
   }
 
   async call () {
-    // TODO: Throw an validation error
-    if (this.password !== this.passwordConfirmation) return
+    strictEqual(this.passwordConfirmation, this.password)
 
     const password = await hash(this.password, HASH_ROUNDS)
 

@@ -3,6 +3,10 @@ import koaBody from 'koa-bodyparser'
 import { router } from './config/routes'
 import { loadApi } from './config/graphql'
 
+// We intercept an assertion error in GraphQL
+// to return it as UserInputError without a colored message
+process.env.NODE_DISABLE_COLORS = true
+
 const app = new Koa()
 const serverPort = process.env.PORT || 3000
 
