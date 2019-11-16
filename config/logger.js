@@ -1,4 +1,5 @@
 import { createLogger, format, transports } from 'winston'
+import config from './application'
 
 const { combine, timestamp, prettyPrint, json } = format
 
@@ -13,6 +14,6 @@ export const logger = createLogger({
   )
 })
 
-if (process.env.NODE_ENV !== 'production') {
+if (config.loggerTransport === 'console') {
   logger.add(new transports.Console())
 }
