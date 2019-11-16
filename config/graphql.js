@@ -4,13 +4,19 @@ import { ApolloServer, makeExecutableSchema, UserInputError, ForbiddenError } fr
 import { AssertionError } from 'assert'
 import { ValidationError } from 'sequelize'
 import { applyMiddleware } from 'graphql-middleware'
+import depthLimit from 'graphql-depth-limit'
 import { shield } from 'graphql-shield'
 import { verify } from './jwt'
 
 export async function loadApi (app) {
   const { typeDefs, resolvers, permissions } = await scan(path.join(__dirname, '..', 'api'))
   const schema = makeExecutableSchema({ typeDefs, resolvers })
-  const server = new ApolloServer({ schema, formatError: rescueFrom, context: setContext })
+  const server = new ApolloServer({
+    schema,
+    formatError: rescueFrom,
+    context: setContext,
+    validationRules: [depthLimit(5)]
+  })
 
   applyMiddleware(schema,
     shield(permissions, {
@@ -39,6 +45,7 @@ function rescueFrom (e) {
     return new UserInputError('Assertion error', { message, actual, expected, code })
   }
 
+  // TODO: log error to logger
   return e
 }
 
