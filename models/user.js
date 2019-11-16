@@ -20,6 +20,13 @@ export const User = pg.define('user', {
       notEmpty: true
     }
   },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: true,
+    validate: {
+      notEmpty: true
+    }
+  },
   githubToken: {
     type: Sequelize.STRING,
     allowNull: true,

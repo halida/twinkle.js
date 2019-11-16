@@ -23,7 +23,7 @@ export async function loadApi (app) {
 
 function setContext ({ ctx }) {
   return {
-    user: verify(ctx.req, ctx.res)
+    userPayload: verify(ctx.req, ctx.res)
   }
 }
 

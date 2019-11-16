@@ -1,0 +1,25 @@
+input LoginInput {
+    login: String!
+    password: String!
+}
+
+type LoginPayload {
+    user: User!
+    token: String!
+}
+
+input SignupInput {
+    login: String!
+    email: String!
+    password: String!
+    passwordConfirmation: String!
+}
+
+extend type Query {
+    currentUser: User
+}
+
+extend type Mutation {
+    login(input: LoginInput!): LoginPayload
+    signup(input: SignupInput!): User
+}

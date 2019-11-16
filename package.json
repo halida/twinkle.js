@@ -17,6 +17,7 @@
   "dependencies": {
     "apollo-server-core": "^2.9.7",
     "apollo-server-koa": "^2.9.7",
+    "bcryptjs": "^2.4.3",
     "esm": "^3.2.25",
     "graphql": "^14.5.8",
     "graphql-middleware": "^4.0.2",
