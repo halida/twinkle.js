@@ -21,6 +21,11 @@ interaction:
         command: yarn debug
         compose:
           run_options: [service-ports, use-aliases]
+      test:
+        description: Run Jasmine tests
+        command: yarn test
+        environment:
+          NODE_ENV: test
 
   lint:
     description: Run Standard linter
@@ -44,3 +49,5 @@ provision:
   - dip yarn sequelize-cli db:create
   - dip yarn sequelize-cli db:migrate
   - dip yarn sequelize-cli db:seed:all
+  - env NODE_ENV=test dip yarn sequelize-cli db:create
+  - env NODE_ENV=test dip yarn sequelize-cli db:migrate
