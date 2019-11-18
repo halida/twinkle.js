@@ -11,13 +11,13 @@ export async function up (queryInterface, Sequelize) {
       githubToken: { type: Sequelize.STRING, allowNull: true }
     }, { transaction })
 
-    await queryInterface.addIndex('users', ['email'], { type: 'UNIQUE', transaction })
-    await queryInterface.addIndex('users', ['login'], { type: 'UNIQUE', transaction })
-    await queryInterface.addIndex('users', ['githubToken'], { type: 'UNIQUE', transaction })
+    await queryInterface.addIndex('users', { name: 'users_email', unique: true, fields: [Sequelize.fn('lower', Sequelize.col('email'))], transaction })
+    await queryInterface.addIndex('users', { name: 'users_login', unique: true, fields: [Sequelize.fn('lower', Sequelize.col('login'))], transaction })
+    await queryInterface.addIndex('users', ['githubToken'], { unique: true, transaction })
 
     await transaction.commit()
   } catch (e) {
-    transaction.rollback()
+    await transaction.rollback()
     throw e
   }
 }
@@ -29,7 +29,7 @@ export async function down (queryInterface) {
     await queryInterface.dropTable('users', { transaction })
     await transaction.commit()
   } catch (e) {
-    transaction.rollback()
+    await transaction.rollback()
     throw e
   }
 }

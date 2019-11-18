@@ -11,10 +11,10 @@
     "globals": [
       "describe",
       "context",
-      "before",
+      "beforeAll",
       "beforeEach",
-      "after",
       "afterEach",
+      "afterAll",
       "it",
       "expect",
       "fail"
@@ -31,6 +31,7 @@
     "apollo-server-core": "^2.9.7",
     "apollo-server-koa": "^2.9.7",
     "bcryptjs": "^2.4.3",
+    "cls-hooked": "^4.2.2",
     "esm": "^3.2.25",
     "graphql": "^14.5.8",
     "graphql-depth-limit": "^1.1.0",

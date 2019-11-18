@@ -37,7 +37,7 @@ function setContext ({ ctx }) {
 function rescueFrom (e) {
   if (e.originalError instanceof ValidationError) {
     const invalidArgs = e.originalError.errors.map(error => {
-      return { message: error.message, path: error.path, validatorName: error.validatorName }
+      return { message: error.message, path: error.path, validatorName: error.validatorName, validatorKey: error.validatorKey }
     })
     return new UserInputError('Validation error', { invalidArgs })
   } else if (e.originalError instanceof AssertionError) {

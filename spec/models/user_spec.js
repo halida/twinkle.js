@@ -3,16 +3,12 @@ import { member } from '../factories/users'
 describe('User', () => {
   let user
 
-  beforeEach(() => {
-    user = member.build()
+  beforeEach(async () => {
+    user = await member.build()
   })
 
-  it('doesn`t fail when all attributes are valid', async () => {
-    try {
-      await user.validate()
-    } catch (e) {
-      fail('User has invalid attributes')
-    }
+  it('doesn`t fail when all attributes are valid', async function () {
+    await this.transactional(async () => user.save())
   })
 
   it('fails when email is invalid', async () => {
@@ -47,5 +43,35 @@ describe('User', () => {
       expect(e.errors[0].path).toEqual('password')
       expect(e.errors[0].validatorName).toEqual('len')
     }
+  })
+
+  it('fails when login already exists', async function () {
+    await this.transactional(async function () {
+      await user.save()
+
+      const anotherUser = await member.build({ login: user.login.toUpperCase() })
+
+      try {
+        await anotherUser.save()
+        fail('User login should not be valid')
+      } catch (e) {
+        expect(e.errors[0].validatorKey).toEqual('not_unique')
+      }
+    })
+  })
+
+  it('fails when email already exists', async function () {
+    await this.transactional(async function () {
+      await user.save()
+
+      const anotherUser = await member.build({ email: user.email.toUpperCase() })
+
+      try {
+        await anotherUser.save()
+        fail('User email should not be valid')
+      } catch (e) {
+        expect(e.errors[0].validatorKey).toEqual('not_unique')
+      }
+    })
   })
 })

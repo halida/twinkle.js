@@ -5,7 +5,8 @@ module.exports = {
   },
   test: {
     url: `${process.env.DATABASE_URL}/twinkle_test`,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    logging: !!process.env.LOG
   },
   production: {
     url: `${process.env.DATABASE_URL}/twinkle`,

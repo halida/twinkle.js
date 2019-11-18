@@ -16,6 +16,7 @@ services:
     command: yarn start
     environment:
       HISTFILE: /app/log/.bash_history
+      LOG: ''
       NODE_ENV: ${NODE_ENV:-development}
       DATABASE_URL: postgres://postgres:postgres@postgres:5432
     volumes:
