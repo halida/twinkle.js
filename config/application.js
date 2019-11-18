@@ -1,5 +1,5 @@
-import developmentConfig from './environments/production'
-import productionConfig from './environments/development'
+import developmentConfig from './environments/development'
+import productionConfig from './environments/production'
 
 const config = {
   loggerTransport: 'console'
