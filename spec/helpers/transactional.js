@@ -1,9 +1,9 @@
-import { pg } from '../../config/pg'
+import { sequelize } from '../../config/sequelize'
 
 beforeAll(function () {
   this.transactional = async function transactional (callback) {
     try {
-      await pg.transaction(async (t) => {
+      await sequelize.transaction(async (t) => {
         await callback()
         await t.rollback()
       })

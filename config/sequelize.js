@@ -7,4 +7,4 @@ const namespace = createNamespace('pg-namespace')
 
 Sequelize.useCLS(namespace)
 
-export const pg = new Sequelize(config[env].url, config[env])
+export const sequelize = new Sequelize(config[env].url, config[env])

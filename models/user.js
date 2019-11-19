@@ -1,7 +1,9 @@
-import { Sequelize } from 'sequelize'
-import { pg } from '../config/pg'
+import { Sequelize, Model } from 'sequelize'
+import { sequelize } from '../config/sequelize'
 
-export const User = pg.define('user', {
+export class User extends Model {}
+
+User.init({
   role: {
     type: Sequelize.ENUM('admin', 'member'),
     allowNull: true,
@@ -41,4 +43,4 @@ export const User = pg.define('user', {
       notEmpty: true
     }
   }
-})
+}, { sequelize })
