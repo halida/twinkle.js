@@ -43,4 +43,4 @@ User.init({
       notEmpty: true
     }
   }
-}, { sequelize })
+}, { sequelize, underscored: true })

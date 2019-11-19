@@ -13,4 +13,4 @@ Membership.init({
     type: Sequelize.BIGINT,
     allowNull: false
   }
-}, { sequelize })
+}, { sequelize, underscored: true })

@@ -2,11 +2,11 @@ export async function up (queryInterface, Sequelize) {
   await queryInterface.sequelize.transaction(async function (transaction) {
     await queryInterface.createTable('users', {
       id: { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
-      createdAt: { type: Sequelize.DATE, allowNull: false },
-      updatedAt: { type: Sequelize.DATE, allowNull: false },
+      created_at: { type: Sequelize.DATE, allowNull: false },
+      updated_at: { type: Sequelize.DATE, allowNull: false },
       email: { type: Sequelize.STRING, allowNull: false },
       login: { type: Sequelize.STRING, allowNull: false },
-      githubToken: { type: Sequelize.STRING, allowNull: true }
+      github_token: { type: Sequelize.STRING, allowNull: true }
     }, { transaction })
 
     await queryInterface.addIndex('users', {
@@ -21,7 +21,7 @@ export async function up (queryInterface, Sequelize) {
       fields: [Sequelize.fn('lower', Sequelize.col('login'))],
       transaction
     })
-    await queryInterface.addIndex('users', ['githubToken'], { unique: true, transaction })
+    await queryInterface.addIndex('users', ['github_token'], { unique: true, transaction })
   })
 }
 

@@ -2,8 +2,8 @@ export async function up (queryInterface, Sequelize) {
   await queryInterface.sequelize.transaction(async function (transaction) {
     await queryInterface.createTable('accounts', {
       id: { type: Sequelize.BIGINT, primaryKey: true, autoIncrement: true },
-      createdAt: { type: Sequelize.DATE, allowNull: false },
-      updatedAt: { type: Sequelize.DATE, allowNull: false },
+      created_at: { type: Sequelize.DATE, allowNull: false },
+      updated_at: { type: Sequelize.DATE, allowNull: false },
       name: { type: Sequelize.STRING, allowNull: false }
     }, { transaction })
 

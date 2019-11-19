@@ -12,4 +12,4 @@ Account.init({
       len: [2, 64]
     }
   }
-}, { sequelize })
+}, { sequelize, underscored: true })
