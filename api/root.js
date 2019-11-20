@@ -1,13 +1,13 @@
-import { allow, isAuthorized } from '../config/shield'
+import { allow, isMember } from '../config/shield'
 
 export const permissions = {
   Query: {
-    '*': isAuthorized,
+    '*': isMember,
     sayHello: allow
   },
 
   Mutation: {
-    '*': isAuthorized,
+    '*': isMember,
     sayHello: allow
   }
 }

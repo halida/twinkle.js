@@ -3,14 +3,15 @@ import { Account } from '../../models/account'
 import { Membership } from '../../models/membership'
 
 export class CreateAccount {
-  constructor ({ name, owner }) {
-    this.name = name
+  constructor (owner, params) {
     this.owner = owner
+    this.params = params
   }
 
   call () {
     return sequelize.transaction(async () => {
-      const account = await Account.create({ name: this.name })
+      const account = await Account.create(this.params)
+
       const membership = await Membership.create({ userId: this.owner.id, accountId: account.id })
 
       return { account, membership }

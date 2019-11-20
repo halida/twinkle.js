@@ -12,8 +12,8 @@ export const permissions = {
 
 export const resolvers = {
   Query: {
-    currentUser: (_, __, { userPayload }) => {
-      return User.findByPk(userPayload.id)
+    currentUser: (_, __, { user }) => {
+      return user
     }
   },
 

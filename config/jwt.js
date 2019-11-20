@@ -28,7 +28,7 @@ export function verify (req, res) {
 
     // generate new token in every 15 minutes
     const diff = Math.floor(Date.now() / 1000) - iat
-    if (diff >= 15 * 60) {
+    if (diff >= 15 * 60 && res.set) {
       const newToken = sign(payload)
       res.set('Authorization', `Bearer ${newToken}`)
     }

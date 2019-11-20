@@ -7,6 +7,7 @@ import { applyMiddleware } from 'graphql-middleware'
 import depthLimit from 'graphql-depth-limit'
 import { shield } from 'graphql-shield'
 import { verify } from './jwt'
+import { User } from '../models/user'
 
 export async function loadApi (app) {
   const { typeDefs, resolvers, permissions } = await scan(path.join(__dirname, '..', 'api'))
@@ -28,10 +29,14 @@ export async function loadApi (app) {
   server.applyMiddleware({ app })
 }
 
-function setContext ({ ctx }) {
-  return {
-    userPayload: verify(ctx.req, ctx.res)
-  }
+async function setContext ({ ctx }) {
+  if (ctx.request.body.operationName === 'IntrospectionQuery') return
+
+  let user
+  const userPayload = verify(ctx.req, ctx.res)
+  if (userPayload) user = await User.findByPk(userPayload.id)
+
+  return { user }
 }
 
 function rescueFrom (e) {

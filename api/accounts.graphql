@@ -1,0 +1,23 @@
+type Account {
+    id: ID!
+    name: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+}
+
+input CreateAccountInput {
+    name: String!
+}
+
+input UpdateAccountInput {
+    name: String!
+}
+
+extend type Query {
+    accounts: [Account!]!
+}
+
+extend type Mutation {
+    createAccount(input: CreateAccountInput!): Account!
+    updateAccount(id: ID!, input: UpdateAccountInput!): Account
+}

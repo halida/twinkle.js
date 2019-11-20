@@ -6,10 +6,10 @@ enum Role {
 type User {
     id: ID!
     role: Role!
-    createdAt: DateTime!
-    updatedAt: DateTime!
     email: String!
     login: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }
 
 input UpdateUserInput {
@@ -17,11 +17,6 @@ input UpdateUserInput {
     login: String
 }
 
-extend type Query {
-    user(id: ID!): User
-    users: [User!]!
-}
-
 extend type Mutation {
-    updateUser(id: ID!, input: UpdateUserInput!): User
+    updateUser(input: UpdateUserInput!): User!
 }
