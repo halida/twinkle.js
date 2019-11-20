@@ -1,5 +1,7 @@
 import { Sequelize, Model } from 'sequelize'
 import { sequelize } from '../config/sequelize'
+import { User } from './user'
+import { Membership } from './membership'
 
 export class Account extends Model {}
 
@@ -13,3 +15,8 @@ Account.init({
     }
   }
 }, { sequelize, underscored: true })
+
+Membership.belongsTo(Account)
+Account.hasMany(Membership)
+Account.belongsToMany(User, { through: Membership })
+User.belongsToMany(Account, { through: Membership })

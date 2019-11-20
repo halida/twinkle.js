@@ -4,8 +4,7 @@ import fs from 'fs'
 const replServer = repl.start({
   prompt: 'app > ',
   useColors: true,
-  replMode: repl.REPL_MODE_STRICT,
-  ignoreUndefined: true
+  replMode: repl.REPL_MODE_SLOPPY
 })
 
 const histFile = process.env.NODE_REPL_HISTORY || `${__dirname}/log/.node_repl_history`
