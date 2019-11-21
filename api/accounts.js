@@ -1,7 +1,8 @@
 import { Account } from '../models/account'
 import { CreateAccount } from '../services/accounts/create'
 import { UpdateAccount } from '../services/accounts/update'
-import { MembershipsByAccountLoader } from '../loaders/memberships_by_account_loader'
+import { AccountMembershipsLoader } from '../loaders/account_memberships_loader'
+import { UsersLoader } from '../loaders/users_loader'
 
 export const resolvers = {
   Query: {
@@ -28,14 +29,14 @@ export const resolvers = {
   },
 
   Membership: {
-    async user (membership) {
-      return membership.getUser()
+    async user (membership, _, context) {
+      return UsersLoader.preload(membership.userId, context)
     }
   },
 
   Account: {
-    async memberships ({ id }, _, context) {
-      return MembershipsByAccountLoader.preload(id, context)
+    async memberships (account, _, context) {
+      return AccountMembershipsLoader.preload(account.id, context)
     }
   }
 }
