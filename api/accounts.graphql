@@ -1,8 +1,13 @@
+type Membership {
+    user: User!
+}
+
 type Account {
     id: ID!
     name: String!
     createdAt: DateTime!
     updatedAt: DateTime!
+    memberships: [Membership!]!
 }
 
 input CreateAccountInput {

@@ -23,5 +23,8 @@ Membership.init({
   }
 }, { sequelize, underscored: true })
 
+Membership.belongsTo(User)
+Membership.belongsTo(Account)
+Account.hasMany(Membership)
 Account.belongsToMany(User, { through: Membership })
 User.belongsToMany(Account, { through: Membership })

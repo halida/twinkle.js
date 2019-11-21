@@ -24,5 +24,17 @@ export const resolvers = {
 
       return account
     }
+  },
+
+  Membership: {
+    async user (membership) {
+      return membership.getUser()
+    }
+  },
+
+  Account: {
+    async memberships (account) {
+      return account.getMemberships()
+    }
   }
 }
