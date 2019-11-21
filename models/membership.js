@@ -12,7 +12,7 @@ Membership.init({
     autoIncrement: true
   },
 
-  // owner - can delete/transfer an account
+  // owner - can manage an account
   // admin - can invite a user, add/delete apps
   // user - can edit apps
   // viewer - can view apps

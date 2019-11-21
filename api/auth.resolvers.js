@@ -1,14 +1,6 @@
-import { allow } from '../config/shield'
 import { User } from '../models/user'
 import { AuthenticateUser } from '../services/users/authenticate'
 import { CreateUser } from '../services/users/create'
-
-export const permissions = {
-  Mutation: {
-    login: allow,
-    signup: allow
-  }
-}
 
 export const resolvers = {
   Query: {

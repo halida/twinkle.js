@@ -1,4 +1,3 @@
-import { Account } from '../models/account'
 import { CreateAccount } from '../services/accounts/create'
 import { UpdateAccount } from '../services/accounts/update'
 import { AccountMembershipsLoader } from '../loaders/account_memberships_loader'
@@ -18,12 +17,7 @@ export const resolvers = {
       return account
     },
 
-    async updateAccount (_, { id, input }, { user }) {
-      const account = await Account.findByPk(id)
-      if (!account) return
-
-      // TODO: Check user permissions
-
+    async updateAccount (_, { accountId, input }, { account }) {
       await new UpdateAccount(account, input).call()
 
       return account

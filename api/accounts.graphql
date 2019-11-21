@@ -1,5 +1,13 @@
+enum AccountRole {
+    owner
+    admin
+    user
+    viewer
+}
+
 type Membership {
     user: User!
+    role: AccountRole!
 }
 
 type Account {
@@ -24,5 +32,5 @@ extend type Query {
 
 extend type Mutation {
     createAccount(input: CreateAccountInput!): Account!
-    updateAccount(id: ID!, input: UpdateAccountInput!): Account
+    updateAccount(accountId: ID!, input: UpdateAccountInput!): Account!
 }
