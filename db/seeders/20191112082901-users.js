@@ -17,6 +17,14 @@ export async function up (queryInterface, Sequelize) {
     password: 'password',
     passwordConfirmation: 'password'
   }).call()
+
+  await new CreateUser({
+    role: 'member',
+    login: 'amanda',
+    email: 'amanda@twinkle.test',
+    password: 'password',
+    passwordConfirmation: 'password'
+  }).call()
 }
 
 export async function down (queryInterface, Sequelize) {
