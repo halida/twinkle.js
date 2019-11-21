@@ -1,6 +1,7 @@
 import { Account } from '../models/account'
 import { CreateAccount } from '../services/accounts/create'
 import { UpdateAccount } from '../services/accounts/update'
+import { MembershipsByAccountLoader } from '../loaders/memberships_by_account_loader'
 
 export const resolvers = {
   Query: {
@@ -33,8 +34,8 @@ export const resolvers = {
   },
 
   Account: {
-    async memberships (account) {
-      return account.getMemberships()
+    async memberships ({ id }, _, context) {
+      return MembershipsByAccountLoader.preload(id, context)
     }
   }
 }

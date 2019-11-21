@@ -32,6 +32,7 @@
     "apollo-server-koa": "^2.9.7",
     "bcryptjs": "^2.4.3",
     "cls-hooked": "^4.2.2",
+    "dataloader": "^2.0.0",
     "esm": "^3.2.25",
     "graphql": "^14.5.8",
     "graphql-depth-limit": "^1.1.0",
