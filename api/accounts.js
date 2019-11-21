@@ -22,6 +22,8 @@ export const resolvers = {
       const account = await Account.findByPk(id)
       if (!account) return
 
+      // TODO: Check user permissions
+
       await new UpdateAccount(account, input).call()
 
       return account

@@ -12,7 +12,11 @@ export class CreateAccount {
     return sequelize.transaction(async () => {
       const account = await Account.create(this.params)
 
-      const membership = await Membership.create({ userId: this.owner.id, accountId: account.id })
+      const membership = await Membership.create({
+        userId: this.owner.id,
+        accountId: account.id,
+        role: 'owner'
+      })
 
       return { account, membership }
     })

@@ -5,8 +5,8 @@ import { User } from '../../models/user'
 const HASH_ROUNDS = 12
 
 export class CreateUser {
-  constructor ({ role, login, email, password, passwordConfirmation }) {
-    this.role = role || 'member'
+  constructor ({ role = 'member', login, email, password, passwordConfirmation }) {
+    this.role = role
     this.login = login
     this.email = email
     this.password = password

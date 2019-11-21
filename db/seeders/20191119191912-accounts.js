@@ -7,7 +7,7 @@ export async function up (queryInterface, Sequelize) {
   const john = await User.findOne({ where: { login: 'john' } })
   const amanda = await User.findOne({ where: { login: 'amanda' } })
 
-  const { account } = await new CreateAccount({
+  const { account } = await new CreateAccount(john, {
     name: 'Rocket Lab',
     owner: john
   }).call()

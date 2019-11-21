@@ -12,6 +12,18 @@ Membership.init({
     autoIncrement: true
   },
 
+  // owner - can delete/transfer an account
+  // admin - can invite a user, add/delete apps
+  // user - can edit apps
+  // viewer - can view apps
+  role: {
+    type: Sequelize.ENUM('owner', 'admin', 'user', 'viewer'),
+    allowNull: true,
+    validate: {
+      isIn: [['owner', 'admin', 'user', 'viewer']]
+    }
+  },
+
   userId: {
     type: Sequelize.BIGINT,
     allowNull: false
