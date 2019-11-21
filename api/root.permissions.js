@@ -1,5 +1,5 @@
 import { rule, allow, chain } from 'graphql-shield'
-import { User } from '../models/user'
+import { User } from '../models'
 
 export const isAuthenticated = rule({ cache: 'contextual' })(
   async (_, __, context) => {

@@ -1,4 +1,4 @@
-import { Membership } from '../models/membership'
+import { Membership } from '../models'
 import { BaseLoader } from './base_loader'
 
 export class AccountMembershipsLoader extends BaseLoader {

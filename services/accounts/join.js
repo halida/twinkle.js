@@ -1,4 +1,4 @@
-import { Membership } from '../../models/membership'
+import { Membership } from '../../models'
 
 export class JoinAccount {
   constructor (account, user, { role = 'user' } = {}) {

@@ -1,6 +1,6 @@
 import faker from 'faker'
 import { Factory } from 'rosie'
-import { User } from '../../models/user'
+import { User } from '../../models'
 
 export const member = Factory
   .define('member', User)

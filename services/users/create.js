@@ -1,6 +1,6 @@
 import { strictEqual } from 'assert'
 import { hash } from 'bcryptjs'
-import { User } from '../../models/user'
+import { User } from '../../models'
 
 const HASH_ROUNDS = 12
 

@@ -1,7 +1,6 @@
 import { rule, chain } from 'graphql-shield'
 import { isAuthenticatedMember } from './root.permissions'
-import { Account } from '../models/account'
-import { Membership } from '../models/membership'
+import { Account, Membership } from '../models'
 
 const accountExist = rule({ cache: 'contextual' })(
   async (_, { accountId }, context) => {

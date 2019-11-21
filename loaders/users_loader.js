@@ -1,4 +1,4 @@
-import { User } from '../models/user'
+import { User } from '../models'
 import { BaseLoader } from './base_loader'
 
 export class UsersLoader extends BaseLoader {

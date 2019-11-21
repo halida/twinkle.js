@@ -1,5 +1,5 @@
-import { User } from '../../models/user'
-import { Account } from '../../models/account'
+import { User, Account } from '../../models'
+
 import { CreateAccount } from '../../services/accounts/create'
 import { JoinAccount } from '../../services/accounts/join'
 

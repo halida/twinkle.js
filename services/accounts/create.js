@@ -1,6 +1,5 @@
 import { sequelize } from '../../config/sequelize'
-import { Account } from '../../models/account'
-import { Membership } from '../../models/membership'
+import { Account, Membership } from '../../models'
 
 export class CreateAccount {
   constructor (owner, params) {
