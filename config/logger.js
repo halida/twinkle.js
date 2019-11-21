@@ -1,11 +1,11 @@
 import { createLogger, format, transports } from 'winston'
 import config from './application'
 
-const { combine, timestamp, simple } = format
+const { combine, timestamp, prettyPrint } = format
 
 export const logger = createLogger({
   level: process.env.LOG_LEVEL || 'info',
-  format: combine(timestamp(), simple())
+  format: combine(timestamp(), prettyPrint())
 })
 
 if (config.loggerTransport === 'console') {
