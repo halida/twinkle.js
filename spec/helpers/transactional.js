@@ -1,4 +1,4 @@
-import { sequelize } from '../../config/sequelize'
+import { sequelize } from '../../lib/sequelize'
 
 beforeAll(function () {
   this.transactional = async function transactional (callback) {

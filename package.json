@@ -2,7 +2,7 @@
   "name": "twinkle",
   "version": "1.0.0",
   "description": "Notification service",
-  "main": "app.js",
+  "main": "index.js",
   "repository": "https://github.com/bibendi/twinkle.js",
   "author": "bibendi",
   "license": "MIT",
@@ -21,9 +21,9 @@
     ]
   },
   "scripts": {
-    "start": "node -r esm app.js",
-    "dev": "nodemon --exec node -r esm -- app.js",
-    "debug": "nodemon --exec node -r esm --inspect=0.0.0.0:9229 -- app.js",
+    "start": "node -r esm index.js",
+    "dev": "nodemon --exec node -r esm -- index.js",
+    "debug": "nodemon --exec node -r esm --inspect=0.0.0.0:9229 -- index.js",
     "console": "node -r esm --experimental-repl-await console.js",
     "test": "env NODE_ENV=test jasmine"
   },

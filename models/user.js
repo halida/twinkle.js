@@ -1,5 +1,5 @@
 import { Sequelize, Model } from 'sequelize'
-import { sequelize } from '../config/sequelize'
+import { sequelize } from '../lib/sequelize'
 
 export class User extends Model {}
 

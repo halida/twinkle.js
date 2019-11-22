@@ -1,5 +1,5 @@
 import { compare } from 'bcryptjs'
-import { sign } from '../../config/jwt'
+import { sign } from '../../lib/jwt'
 
 export class AuthenticateUser {
   constructor ({ user, password }) {

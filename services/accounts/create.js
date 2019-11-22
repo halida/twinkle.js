@@ -1,4 +1,4 @@
-import { sequelize } from '../../config/sequelize'
+import { sequelize } from '../../lib/sequelize'
 import { Account, Membership } from '../../models'
 
 export class CreateAccount {
