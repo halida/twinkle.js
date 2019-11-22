@@ -1,38 +1,26 @@
-import fs from 'fs'
-import path from 'path'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 import { merge } from 'lodash'
+import { scanFolders } from '../lib/scan_folders'
 
-export async function scan (dir, { typeDefs = [], resolvers = [], permissions = { Query: {}, Mutation: {} } } = {}) {
-  if (!dir) dir = __dirname
+export default async function () {
+  const typeDefs = []
+  const resolvers = []
+  const permissions = {}
 
-  const files = fs.readdirSync(dir)
-    .filter(file => fs.lstatSync(path.join(dir, file)).isFile())
-    .filter(file => path.extname(file) === '.js' && path.extname(path.basename(file, '.js')) === '.resolvers')
+  await scanFolders(join(__dirname, 'graphql'), /\.graphql$/, ({ path }) => {
+    typeDefs.push(readFileSync(path, 'utf8'))
+  })
 
-  const dirs = fs.readdirSync((dir))
-    .filter(file => fs.lstatSync(path.join(dir, file)).isDirectory())
-
-  for (const file of files) {
-    const mod = await import(path.join(dir, file))
+  await scanFolders(join(__dirname, 'resolvers'), /\.js$/, async ({ path }) => {
+    const mod = await import(path)
     resolvers.push(mod.resolvers)
+  })
 
-    const basename = path.basename(file, '.resolvers.js')
-
-    const gqlFilePath = path.join(dir, `${basename}.graphql`)
-    if (fs.existsSync(gqlFilePath)) {
-      typeDefs.push(fs.readFileSync(gqlFilePath, 'utf8'))
-    }
-
-    const permissionsFilePath = path.join(dir, `${basename}.permissions.js`)
-    if (fs.existsSync(permissionsFilePath)) {
-      const mod = await import(permissionsFilePath)
-      merge(permissions, mod.permissions)
-    }
-  }
-
-  for (const subDir of dirs) {
-    await scan(path.join(dir, subDir), { typeDefs, resolvers, permissions })
-  }
+  await scanFolders(join(__dirname, 'permissions'), /\.js$/, async ({ path }) => {
+    const mod = await import(path)
+    merge(permissions, mod.permissions)
+  })
 
   return { typeDefs, resolvers, permissions }
 }

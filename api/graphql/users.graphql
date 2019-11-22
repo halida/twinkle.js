@@ -12,11 +12,11 @@ type User {
     updatedAt: DateTime!
 }
 
-input UpdateUserInput {
+input UpdateProfileInput {
     email: String
     login: String
 }
 
 extend type Mutation {
-    updateUser(input: UpdateUserInput!): User!
+    updateProfile(input: UpdateProfileInput!): User!
 }

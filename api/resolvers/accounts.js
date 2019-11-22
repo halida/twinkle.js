@@ -1,8 +1,8 @@
-import { CreateAccount } from '../services/accounts/create'
-import { UpdateAccount } from '../services/accounts/update'
-import { DeleteAccount } from '../services/accounts/delete'
-import { AccountMembershipsLoader } from '../loaders/account_memberships_loader'
-import { UsersLoader } from '../loaders/users_loader'
+import { CreateAccount } from '../../services/accounts/create'
+import { UpdateAccount } from '../../services/accounts/update'
+import { DeleteAccount } from '../../services/accounts/delete'
+import { AccountMembershipsLoader } from '../../loaders/account_memberships_loader'
+import { UsersLoader } from '../../loaders/users_loader'
 
 export const resolvers = {
   Query: {

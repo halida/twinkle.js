@@ -6,11 +6,12 @@ import depthLimit from 'graphql-depth-limit'
 import { shield } from 'graphql-shield'
 import { verify } from './jwt'
 import { logger } from './logger'
-import { scan } from '../api/index'
+import indexApi from '../api'
 
 export async function loadApi (app) {
-  const { typeDefs, resolvers, permissions } = await scan()
+  const { typeDefs, resolvers, permissions } = await indexApi()
   const schema = makeExecutableSchema({ typeDefs, resolvers })
+
   const server = new ApolloServer({
     schema,
     formatError: rescueFrom,
