@@ -2,7 +2,7 @@ import { rule, allow } from 'graphql-shield'
 import { User } from '../../models'
 
 async function setUserContext (context) {
-  if (context.authPayload) context.user = await User.findByPk(context.authPayload.id)
+  if (context.userId) context.user = await User.findByPk(context.userId)
 }
 
 export const isAuthenticated = rule({ cache: 'contextual' })(

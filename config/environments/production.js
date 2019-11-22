@@ -1,3 +1,3 @@
 export default {
-  tokenExpiresIn: '1h'
+  tokenExpiresIn: '1m'
 }

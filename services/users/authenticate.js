@@ -8,9 +8,8 @@ export class AuthenticateUser {
   }
 
   async call () {
-    console.log(this.user.password)
     if (!await compare(this.password, this.user.password)) return
 
-    return sign({ id: this.user.id, login: this.user.login, role: this.user.role })
+    return sign({ userId: this.user.id })
   }
 }
