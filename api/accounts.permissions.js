@@ -2,14 +2,14 @@ import { rule, chain } from 'graphql-shield'
 import { isAuthenticatedMember } from './root.permissions'
 import { Account, Membership } from '../models'
 
-const accountExist = rule({ cache: 'contextual' })(
+const accountExist = rule({ cache: 'strict' })(
   async (_, { accountId }, context) => {
     context.account = await Account.findByPk(accountId)
     return !!context.account
   }
 )
 
-const accountMemberIsOwner = rule({ cache: 'contextual' })(
+const accountMemberIsOwner = rule({ cache: 'strict' })(
   async (_, { accountId }, context) => {
     context.membership = await Membership.findOne({ where: { accountId: accountId, userId: context.user.id, role: 'owner' } })
     return !!context.membership
@@ -18,6 +18,7 @@ const accountMemberIsOwner = rule({ cache: 'contextual' })(
 
 export const permissions = {
   Mutation: {
-    updateAccount: chain(isAuthenticatedMember, accountExist, accountMemberIsOwner)
+    updateAccount: chain(isAuthenticatedMember, accountExist, accountMemberIsOwner),
+    deleteAccount: chain(isAuthenticatedMember, accountExist, accountMemberIsOwner)
   }
 }

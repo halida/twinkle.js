@@ -33,4 +33,5 @@ extend type Query {
 extend type Mutation {
     createAccount(input: CreateAccountInput!): Account!
     updateAccount(accountId: ID!, input: UpdateAccountInput!): Account!
+    deleteAccount(accountId: ID!): ID!
 }
