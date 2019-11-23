@@ -1,7 +1,14 @@
 import { Sequelize, Model } from 'sequelize'
 import { sequelize } from '../lib/sequelize'
+import { sign } from '../lib/jwt'
 
-export class User extends Model {}
+export class User extends Model {
+  generateToken () {
+    if (!this.id) throw new Error('User should be saved before generating a token!')
+
+    return sign({ userId: this.id })
+  }
+}
 
 User.init({
   role: {

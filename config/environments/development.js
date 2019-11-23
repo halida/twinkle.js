@@ -1,3 +1,6 @@
 export default {
-  tokenExpiresIn: '1y'
+  token: {
+    secret: process.env.SECRET_TOKEN || '9kmerfjn2ZIkXEaN6WnPLlY0JShuhRpN',
+    expiresIn: '1y'
+  }
 }

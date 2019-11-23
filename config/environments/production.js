@@ -1,3 +1,6 @@
 export default {
-  tokenExpiresIn: '1m'
+  token: {
+    secret: process.env.SECRET_TOKEN,
+    expiresIn: '30d'
+  }
 }
