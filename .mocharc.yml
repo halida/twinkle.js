@@ -6,5 +6,4 @@ exclude:
 require:
   - esm
   - ./test/support/assertions.js
-  - ./test/support/transactional.js
 reporter: dot

@@ -1,14 +1,17 @@
+import { transactional } from '../support/transactional'
 import { member } from '../factories/users'
 
 describe('User', () => {
+  transactional()
+
   let user
 
   beforeEach(async () => {
     user = await member.build()
   })
 
-  it('does not fail when all attributes are valid', async () => {
-    await transactional(async () => user.save())
+  it('does not fail when all attributes are valid', async function () {
+    await user.save({ transaction: this.transaction })
   })
 
   it('fails when email is invalid', async () => {
@@ -45,33 +48,29 @@ describe('User', () => {
     }
   })
 
-  it('fails when login already exists', async () => {
-    await transactional(async () => {
-      await user.save()
+  it('fails when login already exists', async function () {
+    await user.save({ transaction: this.transaction })
 
-      const anotherUser = await member.build({ login: user.login.toUpperCase() })
+    const anotherUser = await member.build({ login: user.login.toUpperCase() })
 
-      try {
-        await anotherUser.save()
-        expect(false, 'User login should not be valid').to.be.true
-      } catch (e) {
-        expect(e.errors[0].validatorKey).to.equal('not_unique')
-      }
-    })
+    try {
+      await anotherUser.save({ transaction: this.transaction })
+      expect(false, 'User login should not be valid').to.be.true
+    } catch (e) {
+      expect(e.errors[0].validatorKey).to.equal('not_unique')
+    }
   })
 
   it('fails when email already exists', async () => {
-    await transactional(async function () {
-      await user.save()
+    await user.save({ transaction: this.transaction })
 
-      const anotherUser = await member.build({ email: user.email.toUpperCase() })
+    const anotherUser = await member.build({ email: user.email.toUpperCase() })
 
-      try {
-        await anotherUser.save()
-        expect(false, 'User email should not be valid').to.be.true
-      } catch (e) {
-        expect(e.errors[0].validatorKey).to.equal('not_unique')
-      }
-    })
+    try {
+      await anotherUser.save({ transaction: this.transaction })
+      expect(false, 'User email should not be valid').to.be.true
+    } catch (e) {
+      expect(e.errors[0].validatorKey).to.equal('not_unique')
+    }
   })
 })

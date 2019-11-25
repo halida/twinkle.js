@@ -4,13 +4,14 @@ import { Account, Membership } from '../../models'
 
 async function setMembershipContext (context) {
   context.membership = await Membership.findOne({
-    where: { accountId: context.account.id, userId: context.user.id }
+    where: { accountId: context.account.id, userId: context.user.id },
+    transaction: context.transaction
   })
 }
 
 export const isAccountExist = rule({ cache: 'strict' })(
   async (_, { accountId }, context) => {
-    context.account = await Account.findByPk(accountId)
+    context.account = await Account.findByPk(accountId, { transaction: context.transaction })
     return !!context.account
   }
 )

@@ -1,12 +1,11 @@
 import { sequelize } from '../../lib/sequelize'
 
-global.transactional = async function (callback) {
-  try {
-    await sequelize.transaction(async (t) => {
-      await callback()
-      await t.rollback()
-    })
-  } catch (e) {
-    if (!e.message.includes('rollback')) throw e
-  }
+export function transactional () {
+  beforeEach(async function () {
+    this.transaction = await sequelize.transaction()
+  })
+
+  afterEach(async function () {
+    await this.transaction.rollback()
+  })
 }

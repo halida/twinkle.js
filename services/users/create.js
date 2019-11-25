@@ -1,11 +1,14 @@
 import { strictEqual } from 'assert'
 import { hash } from 'bcryptjs'
+import { Base } from '../base'
 import { User } from '../../models'
 
 const HASH_ROUNDS = 12
 
-export class CreateUser {
-  constructor ({ role = 'member', login, email, password, passwordConfirmation }) {
+export class CreateUser extends Base {
+  constructor ({ role = 'member', login, email, password, passwordConfirmation }, options) {
+    super(options)
+
     this.role = role
     this.login = login
     this.email = email
@@ -18,6 +21,7 @@ export class CreateUser {
 
     const password = await hash(this.password, HASH_ROUNDS)
 
-    return User.create({ role: this.role, login: this.login, email: this.email, password })
+    return User.create({ role: this.role, login: this.login, email: this.email, password },
+      { transaction: this.transaction })
   }
 }

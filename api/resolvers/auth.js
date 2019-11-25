@@ -10,17 +10,17 @@ export const resolvers = {
   },
 
   Mutation: {
-    async login (_, { input }) {
+    async login (_, { input }, { transaction }) {
       const { login, password } = input
-      const user = await User.findOne({ where: { login } })
+      const user = await User.findOne({ where: { login }, transaction })
       if (!user) return
 
       const token = await new AuthenticateUser({ user, password }).call()
       if (token) return { user, token }
     },
 
-    async signup (_, { input }) {
-      const user = await new CreateUser(input).call()
+    async signup (_, { input }, { transaction }) {
+      const user = await new CreateUser(input, { transaction }).call()
       if (user) return user
     }
   }

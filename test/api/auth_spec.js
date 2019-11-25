@@ -1,29 +1,27 @@
 import { gql } from 'apollo-server-core'
-import { createTestClient } from 'apollo-server-integration-testing'
-import { createApolloServer } from '../../lib/graphql'
+import { transactional } from '../support/transactional'
+import { setClient } from '../support/graphql'
 import { member } from '../factories/users'
 
 describe('auth', () => {
-  let apolloServer
-  let user
-  let client
+  transactional()
 
-  before(async () => {
-    apolloServer = await createApolloServer()
-  })
+  async function setUser () {
+    this.user = await member.build()
+      .save({ transaction: this.transaction })
+  }
 
   describe('Queries', () => {
     describe('currentUser', () => {
       describe('when user is authenticated', () => {
-        it('returns a valid response', async () => {
-          await transactional(async () => {
-            user = await member.build().save()
-            const token = user.generateToken()
-            client = createTestClient(({ apolloServer, extendMockRequest: { headers: { authorization: `Bearer ${token}` } } }))
+        beforeEach(async function () {
+          await setUser.apply(this)
+          await setClient.apply(this)
+        })
 
-            const { data } = await client.query(gql`query { currentUser { id login } }`)
-            expect(data).to.deep.include({ currentUser: { id: user.id, login: user.login } })
-          })
+        it('returns a valid response', async function () {
+          const { data } = await this.client.query(gql`query { currentUser { id login } }`)
+          expect(data).to.deep.include({ currentUser: { id: this.user.id, login: this.user.login } })
         })
       })
     })

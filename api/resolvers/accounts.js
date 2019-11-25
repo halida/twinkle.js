@@ -6,25 +6,25 @@ import { UsersLoader } from '../../loaders/users_loader'
 
 export const resolvers = {
   Query: {
-    accounts: (_, __, { user }) => {
-      return user.getAccounts()
+    accounts: (_, __, { user, transaction }) => {
+      return user.getAccounts({ transaction: context.transaction })
     }
   },
 
   Mutation: {
-    async createAccount (_, { input }, { user }) {
-      const { account } = await new CreateAccount(user, input).call()
+    async createAccount (_, { input }, { user, transaction }) {
+      const { account } = await new CreateAccount(user, input, { transaction }).call()
       return account
     },
 
-    async updateAccount (_, { accountId, input }, { account }) {
-      await new UpdateAccount(account, input).call()
+    async updateAccount (_, { input }, { account, transaction }) {
+      await new UpdateAccount(account, input, { transaction }).call()
 
       return account
     },
 
-    async deleteAccount (_, { accountId, input }, { account }) {
-      await new DeleteAccount(account).call()
+    async deleteAccount (_, { input }, { account, transaction }) {
+      await new DeleteAccount(account, { transaction }).call()
       return account.id
     }
   },
