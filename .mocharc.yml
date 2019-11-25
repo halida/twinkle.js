@@ -1,0 +1,10 @@
+exit: true
+recursive: true
+exclude:
+  - test/support
+  - test/factories
+require:
+  - esm
+  - ./test/support/assertions.js
+  - ./test/support/transactional.js
+reporter: dot

@@ -7,8 +7,8 @@ describe('User', () => {
     user = await member.build()
   })
 
-  it('doesn`t fail when all attributes are valid', async function () {
-    await this.transactional(async () => user.save())
+  it('does not fail when all attributes are valid', async () => {
+    await transactional(async () => user.save())
   })
 
   it('fails when email is invalid', async () => {
@@ -16,9 +16,9 @@ describe('User', () => {
 
     try {
       await user.validate()
-      fail('User email should not be valid')
+      expect(false, 'User email should not be valid').to.be.ok
     } catch (e) {
-      expect(e.errors[0].path).toEqual('email')
+      expect(e.errors[0].path).to.equal('email')
     }
   })
 
@@ -27,9 +27,9 @@ describe('User', () => {
 
     try {
       await user.validate()
-      fail('User login should not be valid')
+      expect(false, 'User login should not be valid').to.be.ok
     } catch (e) {
-      expect(e.errors[0].path).toEqual('login')
+      expect(e.errors[0].path).to.equal('login')
     }
   })
 
@@ -38,39 +38,39 @@ describe('User', () => {
 
     try {
       await user.validate()
-      fail('User password should not be valid')
+      expect(false, 'User password should not be valid').to.be.ok
     } catch (e) {
-      expect(e.errors[0].path).toEqual('password')
-      expect(e.errors[0].validatorName).toEqual('len')
+      expect(e.errors[0].path).to.equal('password')
+      expect(e.errors[0].validatorName).to.equal('len')
     }
   })
 
-  it('fails when login already exists', async function () {
-    await this.transactional(async function () {
+  it('fails when login already exists', async () => {
+    await transactional(async () => {
       await user.save()
 
       const anotherUser = await member.build({ login: user.login.toUpperCase() })
 
       try {
         await anotherUser.save()
-        fail('User login should not be valid')
+        expect(false, 'User login should not be valid').to.be.ok
       } catch (e) {
-        expect(e.errors[0].validatorKey).toEqual('not_unique')
+        expect(e.errors[0].validatorKey).to.equal('not_unique')
       }
     })
   })
 
-  it('fails when email already exists', async function () {
-    await this.transactional(async function () {
+  it('fails when email already exists', async () => {
+    await transactional(async function () {
       await user.save()
 
       const anotherUser = await member.build({ email: user.email.toUpperCase() })
 
       try {
         await anotherUser.save()
-        fail('User email should not be valid')
+        expect(false, 'User email should not be valid').to.be.ok
       } catch (e) {
-        expect(e.errors[0].validatorKey).toEqual('not_unique')
+        expect(e.errors[0].validatorKey).to.equal('not_unique')
       }
     })
   })

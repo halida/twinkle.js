@@ -8,21 +8,21 @@ describe('auth', () => {
   let user
   let client
 
-  beforeAll(async () => {
+  before(async () => {
     apolloServer = await createApolloServer()
   })
 
   describe('Queries', () => {
     describe('currentUser', () => {
       describe('when user is authenticated', () => {
-        it('returns a valid response', async function () {
-          await this.transactional(async () => {
+        it('returns a valid response', async () => {
+          await transactional(async () => {
             user = await member.build().save()
             const token = user.generateToken()
             client = createTestClient(({ apolloServer, extendMockRequest: { headers: { authorization: `Bearer ${token}` } } }))
 
             const { data } = await client.query(gql`query { currentUser { id login } }`)
-            expect(data).toEqual({ currentUser: { id: user.id, login: user.login } })
+            expect(data).to.deep.include({ currentUser: { id: user.id, login: user.login } })
           })
         })
       })

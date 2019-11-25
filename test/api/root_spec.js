@@ -5,7 +5,7 @@ import { createApolloServer } from '../../lib/graphql'
 describe('root', () => {
   let client
 
-  beforeAll(async () => {
+  before(async () => {
     const apolloServer = await createApolloServer()
     client = createTestClient({ apolloServer })
   })
@@ -15,7 +15,7 @@ describe('root', () => {
       it('returns a valid response', async () => {
         const { data } = await client.query(gql`query { sayHello(name: "Homer" ) }`)
 
-        expect(data).toEqual({ sayHello: 'Hello Homer!' })
+        expect(data).to.include({ sayHello: 'Hello Homer!' })
       })
     })
   })
@@ -25,7 +25,7 @@ describe('root', () => {
       it('returns a valid response', async () => {
         const { data } = await client.query(gql`mutation { sayHello(name: "Homer" ) }`)
 
-        expect(data).toEqual({ sayHello: 'Hello Homer!' })
+        expect(data).to.include({ sayHello: 'Hello Homer!' })
       })
     })
   })
