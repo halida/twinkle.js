@@ -16,7 +16,7 @@ describe('User', () => {
 
     try {
       await user.validate()
-      expect(false, 'User email should not be valid').to.be.ok
+      expect(false, 'User email should not be valid').to.be.true
     } catch (e) {
       expect(e.errors[0].path).to.equal('email')
     }
@@ -27,7 +27,7 @@ describe('User', () => {
 
     try {
       await user.validate()
-      expect(false, 'User login should not be valid').to.be.ok
+      expect(false, 'User login should not be valid').to.be.true
     } catch (e) {
       expect(e.errors[0].path).to.equal('login')
     }
@@ -38,7 +38,7 @@ describe('User', () => {
 
     try {
       await user.validate()
-      expect(false, 'User password should not be valid').to.be.ok
+      expect(false, 'User password should not be valid').to.be.true
     } catch (e) {
       expect(e.errors[0].path).to.equal('password')
       expect(e.errors[0].validatorName).to.equal('len')
@@ -53,7 +53,7 @@ describe('User', () => {
 
       try {
         await anotherUser.save()
-        expect(false, 'User login should not be valid').to.be.ok
+        expect(false, 'User login should not be valid').to.be.true
       } catch (e) {
         expect(e.errors[0].validatorKey).to.equal('not_unique')
       }
@@ -68,7 +68,7 @@ describe('User', () => {
 
       try {
         await anotherUser.save()
-        expect(false, 'User email should not be valid').to.be.ok
+        expect(false, 'User email should not be valid').to.be.true
       } catch (e) {
         expect(e.errors[0].validatorKey).to.equal('not_unique')
       }

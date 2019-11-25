@@ -30,13 +30,9 @@ interaction:
   lint:
     description: Run Standard linter
     service: app
-    command: bash -c "yarn standard --verbose | yarn snazzy"
+    command: yarn eslint .
     compose:
       run_options: [no-deps]
-    subcommands:
-      fix:
-        description: Fix linter problems
-        command: yarn standard --fix
 
   psql:
     description: Open a Postgres psql console
