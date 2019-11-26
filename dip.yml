@@ -21,11 +21,6 @@ interaction:
         command: yarn debug
         compose:
           run_options: [service-ports, use-aliases]
-      test:
-        description: Run Jasmine tests
-        command: yarn test
-        environment:
-          NODE_ENV: test
 
   lint:
     description: Run Standard linter
@@ -33,6 +28,11 @@ interaction:
     command: yarn eslint .
     compose:
       run_options: [no-deps]
+
+  mocha:
+    description: Run Mocha tests
+    service: app
+    command: yarn test
 
   psql:
     description: Open a Postgres psql console
