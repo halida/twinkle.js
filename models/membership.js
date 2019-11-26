@@ -25,13 +25,11 @@ Membership.init({
   },
 
   userId: {
-    type: Sequelize.BIGINT,
-    allowNull: false
+    type: Sequelize.BIGINT
   },
 
   accountId: {
-    type: Sequelize.BIGINT,
-    allowNull: false
+    type: Sequelize.BIGINT
   }
 }, { sequelize, underscored: true })
 
@@ -39,4 +37,5 @@ Membership.belongsTo(User)
 Membership.belongsTo(Account)
 Account.hasMany(Membership)
 Account.belongsToMany(User, { through: Membership })
+User.hasMany(Membership)
 User.belongsToMany(Account, { through: Membership })

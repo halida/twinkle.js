@@ -1,14 +1,12 @@
 import { ValidationError } from 'sequelize'
-import { transactional } from '../support/transactional'
-import { member } from '../factories/users'
 
 describe('User', () => {
   transactional()
 
   let user
 
-  beforeEach(async () => {
-    user = await member.build()
+  beforeEach(() => {
+    user = Factory.build('member')
   })
 
   it('does not fail when all attributes are valid', async function () {
@@ -32,13 +30,13 @@ describe('User', () => {
 
   it('fails when login already exists', async function () {
     await user.save({ transaction: this.transaction })
-    const anotherUser = await member.build({ login: user.login.toUpperCase() })
+    const anotherUser = Factory.build('member', { login: user.login.toUpperCase() })
     expect(anotherUser.save({ transaction: this.transaction })).to.be.rejectedWith(ValidationError)
   })
 
   it('fails when email already exists', async () => {
     await user.save({ transaction: this.transaction })
-    const anotherUser = await member.build({ email: user.email.toUpperCase() })
+    const anotherUser = Factory.build('member', { email: user.email.toUpperCase() })
     expect(anotherUser.save({ transaction: this.transaction })).to.be.rejectedWith(ValidationError)
   })
 

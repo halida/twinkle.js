@@ -1,6 +1,6 @@
 import { sequelize } from '../../lib/sequelize'
 
-export function transactional () {
+global.transactional = function transactional () {
   beforeEach(async function () {
     this.transaction = await sequelize.transaction()
   })

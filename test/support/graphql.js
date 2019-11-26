@@ -1,20 +1,19 @@
 import { createTestClient } from 'apollo-server-integration-testing'
 import { createApolloServer } from '../../lib/graphql'
 
-export async function setClient () {
+export async function buildClient ({ user, transaction } = {}) {
   const apolloServer = await createApolloServer()
   const headers = {}
 
-  if (this.user) {
-    const token = this.user.generateToken()
-    headers.authorization = `Bearer ${token}`
+  if (user) {
+    headers.authorization = `Bearer ${user.generateToken()}`
   }
 
-  this.client = createTestClient({
+  return createTestClient({
     apolloServer,
     extendMockRequest: {
       headers: headers,
-      transaction: this.transaction
+      transaction: transaction
     }
   })
 }

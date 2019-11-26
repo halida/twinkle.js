@@ -1,6 +1,4 @@
 import { AssertionError } from 'assert'
-import { transactional } from '../../support/transactional'
-import { member } from '../../factories/users'
 import { CreateUser } from '../../../services/users/create'
 
 describe('CreateUser', () => {
@@ -8,8 +6,8 @@ describe('CreateUser', () => {
 
   let user
 
-  beforeEach(async () => {
-    user = await member.build()
+  beforeEach(() => {
+    user = Factory.build('member')
   })
 
   context('when all params valid', async function () {

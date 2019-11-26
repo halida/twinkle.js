@@ -2,7 +2,7 @@ import faker from 'faker'
 import { Factory } from 'rosie'
 import { User } from '../../models'
 
-export const member = Factory
+Factory
   .define('member', User)
   .attrs({
     role: 'member',
@@ -10,7 +10,7 @@ export const member = Factory
     email: () => faker.internet.email()
   })
 
-export const admin = Factory
+Factory
   .define('admin')
   .extend('member')
   .attrs({

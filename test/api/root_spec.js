@@ -1,13 +1,11 @@
 import { gql } from 'apollo-server-core'
-import { createTestClient } from 'apollo-server-integration-testing'
-import { createApolloServer } from '../../lib/graphql'
+import { buildClient } from '../support/graphql'
 
 describe('root', () => {
   let client
 
   before(async () => {
-    const apolloServer = await createApolloServer()
-    client = createTestClient({ apolloServer })
+    client = await buildClient()
   })
 
   describe('Queries', () => {

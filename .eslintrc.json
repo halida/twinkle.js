@@ -18,7 +18,8 @@
         "afterEach": "readonly",
         "expect": "readonly",
         "it": "readonly",
-        "transactional": "readonly"
+        "transactional": "readonly",
+        "Factory": "readonly"
     },
     "parserOptions": {
         "ecmaVersion": 2020,
