@@ -1,7 +1,7 @@
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 import { Membership } from '../../models'
 
-export class JoinAccount extends Base {
+export class JoinAccount extends BaseService {
   constructor (account, user, { role = 'user' } = {}, options) {
     super(options)
 

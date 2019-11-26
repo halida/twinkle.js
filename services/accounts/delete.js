@@ -1,6 +1,6 @@
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 
-export class DeleteAccount extends Base {
+export class DeleteAccount extends BaseService {
   constructor (account, options) {
     super(options)
 

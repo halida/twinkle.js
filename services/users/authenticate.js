@@ -1,7 +1,7 @@
 import { compare } from 'bcryptjs'
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 
-export class AuthenticateUser extends Base {
+export class AuthenticateUser extends BaseService {
   constructor ({ user, password }, options) {
     super(options)
     this.user = user

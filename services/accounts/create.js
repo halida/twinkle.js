@@ -1,8 +1,8 @@
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 import { sequelize } from '../../lib/sequelize'
 import { Account, Membership } from '../../models'
 
-export class CreateAccount extends Base {
+export class CreateAccount extends BaseService {
   constructor (owner, params, options) {
     super(options)
 

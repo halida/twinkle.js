@@ -1,6 +1,6 @@
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 
-export class UpdateUser extends Base {
+export class UpdateUser extends BaseService {
   constructor (user, params, options) {
     super(options)
 

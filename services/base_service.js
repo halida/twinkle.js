@@ -1,4 +1,4 @@
-export class Base {
+export class BaseService {
   constructor ({ transaction } = {}) {
     this.transaction = transaction
   }

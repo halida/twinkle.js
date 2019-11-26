@@ -1,11 +1,11 @@
 import { strictEqual } from 'assert'
 import { hash } from 'bcryptjs'
-import { Base } from '../base'
+import { BaseService } from '../base_service'
 import { User } from '../../models'
 
 const HASH_ROUNDS = 12
 
-export class CreateUser extends Base {
+export class CreateUser extends BaseService {
   constructor ({ role = 'member', login, email, password, passwordConfirmation }, options) {
     super(options)
 
