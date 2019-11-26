@@ -22,6 +22,19 @@ describe('auth', () => {
           expect(data).to.deep.include({ currentUser: { id: user.id, login: user.login } })
         })
       })
+
+      describe('when user is unauthenticated', function () {
+        beforeEach(async function () {
+          client = await buildClient({ transaction: this.transaction })
+        })
+
+        it('returns an error', async function () {
+          const { data, errors } = await client.query(gql`query { currentUser { id login } }`)
+
+          expect(data.currentUser).to.be.null
+          expect(errors[0].extensions.code).to.equal('FORBIDDEN')
+        })
+      })
     })
   })
 })
