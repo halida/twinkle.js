@@ -28,7 +28,7 @@
     "test": "env NODE_ENV=test mocha"
   },
   "dependencies": {
-    "apollo-server-core": "^2.9.7",
+    "apollo-server-core": "^2.14.2",
     "apollo-server-koa": "^2.9.7",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
