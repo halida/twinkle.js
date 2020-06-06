@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "apollo-server-core": "^2.9.7",
-    "apollo-server-koa": "^2.9.7",
+    "apollo-server-koa": "^2.14.2",
     "bcryptjs": "^2.4.3",
     "dataloader": "^2.0.0",
     "esm": "^3.2.25",
