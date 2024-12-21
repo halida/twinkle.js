@@ -2,7 +2,7 @@ version: '4.1'
 
 interaction:
   bash:
-    description: Oopen a Bash shell
+    description: Open a Bash shell
     service: app
     command: bash
 
